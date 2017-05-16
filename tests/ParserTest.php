@@ -33,16 +33,42 @@ class ParserTest extends TestCase
             $parsed
         );
     }
+    /**
+     * @dataProvider provideIncorrectContent
+     */
+    public function testParseIncorrect($content, $url)
+    {
+        $handler = $this
+            ->getMockBuilder(CallableStub::class)
+            ->getMock();
+
+        $handler
+            ->expects($this->never())
+            ->method('__invoke');
+
+        $parsed = parse(
+            sprintf($content, $url),
+            $handler
+        );
+
+        $this->assertEquals(
+            sprintf($content, $url),
+            $parsed
+        );
+    }
+
+    public function provideUrls()
+    {
+        return [
+            ['https://example.com'],
+            ['http://example.com'],
+            ['https://example.com?foo=bar#123'],
+            ['http://example.com?foo=bar#123'],
+        ];
+    }
 
     public function provideCorrectContent()
     {
-        $urls = [
-            'https://example.com',
-            'http://example.com',
-            'https://example.com?foo=bar#123',
-            'http://example.com?foo=bar#123',
-        ];
-
         $contents = [
             [
                 "%s",
@@ -89,7 +115,6 @@ class ParserTest extends TestCase
 
             // --
 
-
             [
                 "<p>%s</p>",
             ],
@@ -132,13 +157,62 @@ class ParserTest extends TestCase
             [
                 "<p>\r\n\r\n\r\n\r\n\r\n\r\n%s\r\n</p>",
             ],
+
+            // ---
+
+            [
+                "<p><strong><br></strong>%s</p>",
+            ],
+            [
+                "<p>%s<strong><br></strong></p>",
+            ],
+            [
+                "<p>%s\r\n<strong> <br>\r\n</strong></p>",
+            ],
+            [
+                "<p>\r\n<strong> <br>\r\n</strong>%s</p>",
+            ],
         ];
 
         $data = [];
 
-        foreach ($urls as $url) {
+        foreach ($this->provideUrls() as $url) {
             $data = array_merge($data, array_map(function ($item) use ($url) {
-                return array_merge($item, [$url]);
+                return array_merge($item, [$url[0]]);
+            }, $contents));
+        }
+
+        return $data;
+    }
+
+    public function provideIncorrectContent()
+    {
+        $contents = [
+            [
+                "test %s</p>",
+            ],
+            [
+                "<p>test %s</p>",
+            ],
+            [
+                "<p>%s test</p>",
+            ],
+            [
+                "<span>%s</a>",
+            ],
+            [
+                "<pre>%s\r\n</p>",
+            ],
+            [
+                "<a href=\"http://example.com\">\r\n%s</a>",
+            ],
+        ];
+
+        $data = [];
+
+        foreach ($this->provideUrls() as $url) {
+            $data = array_merge($data, array_map(function ($item) use ($url) {
+                return array_merge($item, [$url[0]]);
             }, $contents));
         }
 
