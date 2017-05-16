@@ -47,7 +47,7 @@ At vero eos et accusam et justo duo dolores et ea rebum.
 
 ### HTML
 
-```text
+```html
 <p>
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
     sed diam nonumy eirmod tempor invidunt ut labore et dolore
