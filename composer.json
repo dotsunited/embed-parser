@@ -1,5 +1,6 @@
 {
     "name": "dotsunited/embed-parser",
+    "description": "Simple utility to parse URLs in HTML or text content which are placed on its own line to turn them into embeds.",
     "keywords": ["embed", "oembed", "html", "parser"],
     "homepage": "https://github.com/dotsunited/embed-parser",
     "license": "MIT",
