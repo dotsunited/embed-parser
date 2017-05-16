@@ -1,0 +1,28 @@
+language: php
+
+php:
+  - 5.6
+  - 7.0
+  - 7.1
+  - nightly
+
+matrix:
+  include:
+    - php: 5.6
+      env: dependencies=lowest
+    - php: 7.1
+      env: dependencies=highest
+  fast_finish: true
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+install:
+  - if [ -z "$dependencies" ]; then travis_retry composer install --no-interaction; fi;
+  - if [ "$dependencies" = "lowest" ]; then travis_retry composer update --prefer-lowest --no-interaction; fi;
+  - if [ "$dependencies" = "highest" ]; then travis_retry composer update --no-interaction; fi;
+  - composer show
+
+script:
+  - vendor/bin/phpunit -v --coverage-text
