@@ -30,6 +30,39 @@ $transformedContent = DotsUnited\EmbedParser\parse($content, function ($url) {
 });
 ```
 
+The URL must be on its own line or surrounded only by `<p>` tags with no other
+text content to be parsed.
+
+### Text
+
+```text
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+sed diam nonumy eirmod tempor invidunt ut labore et dolore
+magna aliquyam erat, sed diam voluptua.
+
+https://youtube.com/watch?v=QcIy9NiNbmo
+
+At vero eos et accusam et justo duo dolores et ea rebum.
+```
+
+### HTML
+
+```text
+<p>
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+    sed diam nonumy eirmod tempor invidunt ut labore et dolore
+    magna aliquyam erat, sed diam voluptua.
+</p>
+
+<p>
+    https://youtube.com/watch?v=QcIy9NiNbmo
+</p>
+
+<p>
+    At vero eos et accusam et justo duo dolores et ea rebum.
+</p>
+```
+
 License
 -------
 
