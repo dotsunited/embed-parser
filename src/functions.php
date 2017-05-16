@@ -22,4 +22,3 @@ function parse($content, callable $handler)
 
     return $content;
 }
-
