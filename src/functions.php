@@ -14,7 +14,8 @@ function parse($content, callable $handler)
                         $matches[1],
                         ENT_COMPAT,
                         'UTF-8'
-                    )
+                    ),
+                    '<a>'
                 )
             );
 
@@ -29,7 +30,8 @@ function parse($content, callable $handler)
                         $matches[3],
                         ENT_COMPAT,
                         'UTF-8'
-                    )
+                    ),
+                    '<a>'
                 )
             );
 

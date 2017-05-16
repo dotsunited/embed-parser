@@ -206,6 +206,9 @@ class ParserTest extends TestCase
             [
                 "<a href=\"http://example.com\">\r\n%s</a>",
             ],
+            [
+                "<p><a href=\"http://example.com\">%s</a></p>",
+            ],
         ];
 
         $data = [];
