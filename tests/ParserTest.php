@@ -36,7 +36,7 @@ class ParserTest extends TestCase
     /**
      * @dataProvider provideIncorrectContent
      */
-    public function ttestParseIncorrect($content, $url)
+    public function testParseIncorrect($content, $url)
     {
         $handler = $this
             ->getMockBuilder(CallableStub::class)
